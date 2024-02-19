@@ -30,5 +30,7 @@ public class Admin {
                 frame.setVisible(true);
             }
         });
+        System.out.println("FF");
     }
+
 }
