@@ -20,9 +20,9 @@ public class Login {
                 ResultSet rs = null;
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost:3306/minimarket";
-                    String usuario = "root";
-                    String contraseña = "";
+                    String url = "jdbc:mysql://ukcbxiwbpnwnjbhz:nnnad12meO4RxPBS0TVq@bgisygx1p6vq9tj7srfr-mysql.services.clever-cloud.com:3306/bgisygx1p6vq9tj7srfr";
+                    String usuario = "ukcbxiwbpnwnjbhz";
+                    String contraseña = "nnnad12meO4RxPBS0TVq";
                     conn = DriverManager.getConnection(url, usuario, contraseña);
                     String sql = "SELECT * FROM usuarios";
                     stmt = conn.prepareStatement(sql);
@@ -37,6 +37,7 @@ public class Login {
                             String cargo= rs.getString("cargo");
                             if (cargo.equals("admin")){
                                 JFrame frames = new JFrame("ADMINISTRADOR");
+                                frames.dispose();
                                 frames.setUndecorated(true);
                                 frames.setContentPane(new Admin().AdminU);
                                 frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,11 +45,13 @@ public class Login {
                                 frames.setLocationRelativeTo(null);
                                 frames.setVisible(true);
                             } else if (cargo.equals("cajero")) {
+                                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(INGRESARButton);
+                                frame.dispose();
                                 JFrame frames = new JFrame("CAJERO");
                                 frames.setUndecorated(true);
                                 frames.setContentPane(new Cajero().cajerop);
                                 frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                frames.setSize(590,590);
+                                frames.setSize(550,700);
                                 frames.setLocationRelativeTo(null);
                                 frames.setVisible(true);
                             } else if (cargo.equals("bodega")) {

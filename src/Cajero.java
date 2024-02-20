@@ -136,6 +136,7 @@ public class Cajero {
             public void actionPerformed(ActionEvent e) {
                 if (contador==1){
                     JFrame frames = new JFrame("Generar facturas");
+                    frames.dispose();
                     frames.setUndecorated(true);
                     frames.setContentPane(new Factura().factura);
                     frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -150,6 +151,7 @@ public class Cajero {
             public void actionPerformed(ActionEvent e) {
                 if (contador==1){
                     JFrame frames = new JFrame("Generar facturas");
+                    frames.dispose();
                     frames.setUndecorated(true);
                     frames.setContentPane(new consumidor().consumidor);
                     frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,6 +159,20 @@ public class Cajero {
                     frames.setLocationRelativeTo(null);
                     frames.setVisible(true);
                 }
+            }
+        });
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(volverButton);
+                frame.dispose();
+                JFrame frames = new JFrame("EL MINI MINI MARKET PRO PLUS +");
+                frame.setUndecorated(true);
+                frame.setContentPane(new Login().LoginN);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(400,700);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         });
     }
