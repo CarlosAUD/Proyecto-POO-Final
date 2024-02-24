@@ -35,9 +35,13 @@ public class Cajero {
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
-                    Connection conexion = connector.obtenerConexion();
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://localhost:3306/minimarket";
+                    String usuario = "root";
+                    String contraseña = "";
+                    conn = DriverManager.getConnection(url, usuario, contraseña);
                     String sql = "SELECT * FROM productos";
-                    stmt = conexion.prepareStatement(sql);
+                    stmt = conn.prepareStatement(sql);
                     rs = stmt.executeQuery();
                     String codigoIngresado = ingreprodu.getText();
                     while (rs.next()) {
@@ -55,7 +59,7 @@ public class Cajero {
                     } else {
                         JOptionPane.showMessageDialog(null, "Producto no encontrado.");
                     }
-                } catch (SQLException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
                 }
             }
@@ -86,12 +90,17 @@ public class Cajero {
         venderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Connection conexion = connector.obtenerConexion();
+                Connection conn = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://localhost:3306/minimarket";
+                    String usuario = "root";
+                    String contraseña = "";
+                    conn = DriverManager.getConnection(url, usuario, contraseña);
                     String sql = "INSERT INTO facturas_temp (nombre_p,precio,cantidad,sub_total) VALUES (?,?,?,?)";
-                    stmt = conexion.prepareStatement(sql);
+                    stmt = conn.prepareStatement(sql);
                     stmt.setString(1,nametext.getText());
                     stmt.setDouble(2, Double.parseDouble(preciotext.getText()));
                     stmt.setInt(3,Integer.parseInt(cantitext.getText()));
@@ -103,7 +112,7 @@ public class Cajero {
                         System.out.println("No se pudo insertar los datos.");
                     }
                     String sql2 = "UPDATE productos SET stock = ? WHERE codigo = ?";
-                    stmt = conexion.prepareStatement(sql2);
+                    stmt = conn.prepareStatement(sql2);
                     stmt.setInt(1,stock-Integer.parseInt(cantitext.getText()));
                     stmt.setInt(2,Integer.parseInt(ingreprodu.getText()));
                     int filasAfecta = stmt.executeUpdate();
@@ -117,7 +126,7 @@ public class Cajero {
                     nametext.setText("");
                     preciotext.setText("");
                     contador=1;
-                } catch (SQLException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
                 }
             }

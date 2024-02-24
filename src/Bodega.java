@@ -14,6 +14,8 @@ public class Bodega {
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if (source == radioButton1) {
+                    Main.ventana.setContentPane(new verProducto().verJPanel);
+                    Main.ventana.revalidate();
                 } else if (source == radioButton2) {
                 } else if (source == radioButton3) {
                 }

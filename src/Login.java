@@ -20,7 +20,8 @@ public class Login {
                 String contraseña = String.valueOf(ContrasenaLoginField1.getText());
                 String opcionSeleccionada = (String) comboBox1.getSelectedItem();
                 if (!nombre.isEmpty() && !contraseña.isEmpty()) {
-                    Connection conexion = connector.obtenerConexion();
+                    Connection conexion = null;
+                    conexion = connector.obtenerConexion();
                     switch (opcionSeleccionada) {
                         case "Administrador":
                             try {
