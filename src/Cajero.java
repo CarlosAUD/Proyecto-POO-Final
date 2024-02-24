@@ -35,13 +35,9 @@ public class Cajero {
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost:3306/minimarket";
-                    String usuario = "root";
-                    String contraseña = "";
-                    conn = DriverManager.getConnection(url, usuario, contraseña);
+                    Connection conexion = connector.obtenerConexion();
                     String sql = "SELECT * FROM productos";
-                    stmt = conn.prepareStatement(sql);
+                    stmt = conexion.prepareStatement(sql);
                     rs = stmt.executeQuery();
                     String codigoIngresado = ingreprodu.getText();
                     while (rs.next()) {
@@ -59,7 +55,7 @@ public class Cajero {
                     } else {
                         JOptionPane.showMessageDialog(null, "Producto no encontrado.");
                     }
-                } catch (SQLException | ClassNotFoundException ex) {
+                } catch (SQLException ex) {
                     System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
                 }
             }
@@ -90,17 +86,12 @@ public class Cajero {
         venderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Connection conn = null;
+                Connection conexion = connector.obtenerConexion();
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost:3306/minimarket";
-                    String usuario = "root";
-                    String contraseña = "";
-                    conn = DriverManager.getConnection(url, usuario, contraseña);
                     String sql = "INSERT INTO facturas_temp (nombre_p,precio,cantidad,sub_total) VALUES (?,?,?,?)";
-                    stmt = conn.prepareStatement(sql);
+                    stmt = conexion.prepareStatement(sql);
                     stmt.setString(1,nametext.getText());
                     stmt.setDouble(2, Double.parseDouble(preciotext.getText()));
                     stmt.setInt(3,Integer.parseInt(cantitext.getText()));
@@ -112,7 +103,7 @@ public class Cajero {
                         System.out.println("No se pudo insertar los datos.");
                     }
                     String sql2 = "UPDATE productos SET stock = ? WHERE codigo = ?";
-                    stmt = conn.prepareStatement(sql2);
+                    stmt = conexion.prepareStatement(sql2);
                     stmt.setInt(1,stock-Integer.parseInt(cantitext.getText()));
                     stmt.setInt(2,Integer.parseInt(ingreprodu.getText()));
                     int filasAfecta = stmt.executeUpdate();
@@ -126,7 +117,7 @@ public class Cajero {
                     nametext.setText("");
                     preciotext.setText("");
                     contador=1;
-                } catch (SQLException | ClassNotFoundException ex) {
+                } catch (SQLException ex) {
                     System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
                 }
             }
@@ -135,14 +126,8 @@ public class Cajero {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (contador==1){
-                    JFrame frames = new JFrame("Generar facturas");
-                    frames.dispose();
-                    frames.setUndecorated(true);
-                    frames.setContentPane(new Factura().factura);
-                    frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frames.setSize(550,700);
-                    frames.setLocationRelativeTo(null);
-                    frames.setVisible(true);
+                    Main.ventana.setContentPane(new Factura().factura);
+                    Main.ventana.revalidate();
                 }
             }
         });
@@ -150,29 +135,16 @@ public class Cajero {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (contador==1){
-                    JFrame frames = new JFrame("Generar facturas");
-                    frames.dispose();
-                    frames.setUndecorated(true);
-                    frames.setContentPane(new consumidor().consumidor);
-                    frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frames.setSize(550,700);
-                    frames.setLocationRelativeTo(null);
-                    frames.setVisible(true);
+                    Main.ventana.setContentPane(new consumidor().consumidor);
+                    Main.ventana.revalidate();
                 }
             }
         });
         volverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(volverButton);
-                frame.dispose();
-                JFrame frames = new JFrame("EL MINI MINI MARKET PRO PLUS +");
-                frame.setUndecorated(true);
-                frame.setContentPane(new Login().LoginN);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(400,700);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                Main.ventana.setContentPane(new Login().LoginN);
+                Main.ventana.revalidate();
             }
         });
     }

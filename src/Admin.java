@@ -19,15 +19,8 @@ public class Admin {
         REGRESARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(REGRESARButton);
-                frame.dispose();
-                JFrame frames = new JFrame("EL MINI MINI MARKET PRO PLUS +");
-                frame.setUndecorated(true);
-                frame.setContentPane(new Login().LoginN);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(400,700);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                Main.ventana.setContentPane(new Login().LoginN);
+                Main.ventana.revalidate();
             }
         });
     }
