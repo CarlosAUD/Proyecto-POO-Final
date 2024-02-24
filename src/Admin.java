@@ -1,3 +1,5 @@
+import java.sql.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,12 @@ public class Admin {
     private JButton MODIFICARVButton2;
     private JButton ELIMINARVButton2;
 
+    private Connection connection;
+
     public Admin() {
+
+        // Conexion a la base de datos
+        Connection conexion = connector.obtenerConexion();
         REGRESARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -23,5 +30,16 @@ public class Admin {
                 Main.ventana.revalidate();
             }
         });
+
+
+
+        CREARPButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new InsertarProduct().insertproduct);
+                Main.ventana.revalidate();
+            }
+        });
     }
+
 }
