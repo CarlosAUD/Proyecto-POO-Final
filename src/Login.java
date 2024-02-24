@@ -25,7 +25,7 @@ public class Login {
                     switch (opcionSeleccionada) {
                         case "Administrador":
                             try {
-                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                String sql = "SELECT * FROM administradores WHERE usuario = '"+ nombre+"' AND contraseña = "+ contraseña;
                                 Statement statement = conexion.createStatement();
                                 ResultSet resultSet = statement.executeQuery(sql);
                                 if (resultSet.next()) {
@@ -43,7 +43,7 @@ public class Login {
                             break;
                         case "Cajero":
                             try {
-                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                String sql = "SELECT * FROM cajeros WHERE usuario = '"+ nombre+"' AND contraseña = "+ contraseña;
                                 Statement statement = conexion.createStatement();
                                 ResultSet resultSet = statement.executeQuery(sql);
                                 if (resultSet.next()) {
@@ -60,7 +60,7 @@ public class Login {
                             break;
                         case "Bodeguero":
                             try {
-                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                String sql = "SELECT * FROM bodegueros WHERE usuario = '"+ nombre+"' AND contraseña = "+ contraseña;
                                 Statement statement = conexion.createStatement();
                                 ResultSet resultSet = statement.executeQuery(sql);
                                 if (resultSet.next()) {

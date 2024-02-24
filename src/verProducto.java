@@ -3,6 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,25 +36,34 @@ public class verProducto {
                 try {
                     Statement newStatement = conexion.createStatement();
                     ResultSet newRs = newStatement.executeQuery("SELECT * FROM productos WHERE marca = '" + selectedProductName + "'");
-                    DefaultTableModel model = new DefaultTableModel();
-                    ResultSetMetaData metaData = newRs.getMetaData();
-                    int columnCount = metaData.getColumnCount();
-                    for (int i = 1; i <= columnCount; i++) {
-                        model.addColumn(metaData.getColumnName(i));
-                    }
+
+                    // Definir los nombres de las columnas manualmente
+                    String[] columnNames = {"id_producto", "Tipo", "Nombre","Marca", "Cantidad", "Precio"};
+
+                    // Crear un nuevo modelo de tabla con los nombres de las columnas definidos
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                    // Iterar sobre los resultados del ResultSet y agregar filas al modelo de tabla
                     while (newRs.next()) {
-                        Object[] rowData = new Object[columnCount];
-                        for (int i = 1; i <= columnCount; i++) {
-                            rowData[i - 1] = newRs.getObject(i);
+                        Object[] rowData = new Object[columnNames.length];
+                        for (int i = 0; i < columnNames.length; i++) {
+                            // Suponiendo que las columnas en el ResultSet están en el mismo orden que los nombres definidos
+                            rowData[i] = newRs.getObject(i + 1);
                         }
                         model.addRow(rowData);
                     }
+
+                    // Establecer el modelo de tabla en tu JTable
                     table1.setModel(model);
+
+                    // Cerrar el ResultSet y la declaración
                     newRs.close();
                     newStatement.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+
+
             });
             rs.close();
             statement.close();
