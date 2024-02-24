@@ -9,64 +9,79 @@ public class Login {
     private JTextField UsuarioLogintextField1;
     private JButton INGRESARButton;
     private JButton SALIRButton;
+    private JComboBox comboBox1;
+    private JLabel advertencia;
     boolean encontrado = false;
     public Login() {
         INGRESARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                encontrado = false;
-                Connection conn = null;
-                PreparedStatement stmt = null;
-                ResultSet rs = null;
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    String url = "jdbc:mysql://ukcbxiwbpnwnjbhz:nnnad12meO4RxPBS0TVq@bgisygx1p6vq9tj7srfr-mysql.services.clever-cloud.com:3306/bgisygx1p6vq9tj7srfr";
-                    String usuario = "ukcbxiwbpnwnjbhz";
-                    String contraseña = "nnnad12meO4RxPBS0TVq";
-                    conn = DriverManager.getConnection(url, usuario, contraseña);
-                    String sql = "SELECT * FROM usuarios";
-                    stmt = conn.prepareStatement(sql);
-                    rs = stmt.executeQuery();
-                    String usuarioingre = UsuarioLogintextField1.getText();
-                    int contrp= Integer.parseInt(ContrasenaLoginField1.getText());
-                    while (rs.next()) {
-                        String nom = rs.getString("nombre");
-                        int contra= rs.getInt("contra");
-                        if (nom.equals(usuarioingre) && contra==contrp){
-                            encontrado = true;
-                            String cargo= rs.getString("cargo");
-                            if (cargo.equals("admin")){
-                                JFrame frames = new JFrame("ADMINISTRADOR");
-                                frames.dispose();
-                                frames.setUndecorated(true);
-                                frames.setContentPane(new Admin().AdminU);
-                                frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                frames.setSize(550,700);
-                                frames.setLocationRelativeTo(null);
-                                frames.setVisible(true);
-                            } else if (cargo.equals("cajero")) {
-                                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(INGRESARButton);
-                                frame.dispose();
-                                JFrame frames = new JFrame("CAJERO");
-                                frames.setUndecorated(true);
-                                frames.setContentPane(new Cajero().cajerop);
-                                frames.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                frames.setSize(550,700);
-                                frames.setLocationRelativeTo(null);
-                                frames.setVisible(true);
-                            } else if (cargo.equals("bodega")) {
-                                
+                String nombre = UsuarioLogintextField1.getText();
+                String contraseña = String.valueOf(ContrasenaLoginField1.getText());
+                String opcionSeleccionada = (String) comboBox1.getSelectedItem();
+                if (!nombre.isEmpty() && !contraseña.isEmpty()) {
+                    Connection conexion = connector.obtenerConexion();
+                    switch (opcionSeleccionada) {
+                        case "Administrador":
+                            try {
+                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                Statement statement = conexion.createStatement();
+                                ResultSet resultSet = statement.executeQuery(sql);
+                                if (resultSet.next()) {
+                                    Main.ventana.setContentPane(new Admin().AdminU);
+                                    Main.ventana.revalidate();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró información del estudiante en listaestudiantes");
+                                }
+
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al realizar la consulta SQL");
+                                exception.printStackTrace();
                             }
-                        }
+
+                            break;
+                        case "Cajero":
+                            try {
+                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                Statement statement = conexion.createStatement();
+                                ResultSet resultSet = statement.executeQuery(sql);
+                                if (resultSet.next()) {
+                                    Main.ventana.setContentPane(new Cajero().cajerop);
+                                    Main.ventana.revalidate();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró información del estudiante en listaestudiantes");
+                                }
+
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al realizar la consulta SQL");
+                                exception.printStackTrace();
+                            }
+                            break;
+                        case "Bodeguero":
+                            try {
+                                String sql = "SELECT * FROM usuarios WHERE nombre = '"+ nombre+"' AND contra = "+ contraseña;
+                                Statement statement = conexion.createStatement();
+                                ResultSet resultSet = statement.executeQuery(sql);
+                                if (resultSet.next()) {
+                                    Main.ventana.setContentPane(new Bodega().bodegaJPanel);
+                                    Main.ventana.revalidate();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró información del estudiante en listaestudiantes");
+                                }
+
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al realizar la consulta SQL");
+                                exception.printStackTrace();
+                            }
+                            break;
                     }
-                    if (encontrado==false) {
-                        JOptionPane.showMessageDialog(null, "Usuario incorrecto.");
-                    }
-                } catch (SQLException | ClassNotFoundException ex) {
-                    System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+                }else{
+                    advertencia.setText("Ingrese sus credenciales");
                 }
             }
+
         });
+
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

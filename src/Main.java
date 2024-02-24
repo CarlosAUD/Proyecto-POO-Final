@@ -1,14 +1,12 @@
 import javax.swing.*;
 
 public class Main {
+    static JFrame ventana = new JFrame("Gestion de Proyectos");
     public static void main(String[] args) {
-        JFrame frame = new JFrame("EL MINI MINI MARKET PRO PLUS +");
-        frame.dispose();
-        frame.setUndecorated(true);
-        frame.setContentPane(new Login().LoginN);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,700);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setContentPane(new Login().LoginN);
+        ventana.pack();
+        ventana.setSize(1000, 800);
+        ventana.setVisible(true);
     }
 }
