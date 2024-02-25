@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 
-public class InsertarProduct {
+public class InsertarProductAD {
     JPanel insertproduct;
     private JTextField txtIDproduc;
     private JTextField txtTipo;
@@ -25,7 +25,7 @@ public class InsertarProduct {
 
     private Connection connection;
 
-    public InsertarProduct() {
+    public InsertarProductAD() {
 
         //Establecer la conexion
         connection = connector.obtenerConexion();

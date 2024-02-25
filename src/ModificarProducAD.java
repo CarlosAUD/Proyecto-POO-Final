@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ModificarProduc {
+public class ModificarProducAD{
     JPanel modifiproduc;
     private JLabel Titulo2;
     private JButton buscarButton;
@@ -24,7 +24,7 @@ public class ModificarProduc {
 
     private Connection connection;
 
-    public ModificarProduc() {
+    public ModificarProducAD() {
 
         //Establecer la conexion
         connection = connector.obtenerConexion();

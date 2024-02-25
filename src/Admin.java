@@ -36,14 +36,21 @@ public class Admin {
         CREARPButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.ventana.setContentPane(new InsertarProduct().insertproduct);
+                Main.ventana.setContentPane(new InsertarProductAD().insertproduct);
                 Main.ventana.revalidate();
             }
         });
         MODIFICARPButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.ventana.setContentPane(new ModificarProduc().modifiproduc);
+                Main.ventana.setContentPane(new ModificarProducAD().modifiproduc);
+                Main.ventana.revalidate();
+            }
+        });
+        ELIMINARPButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new EliminarProductosAD().EliminarPAD);
                 Main.ventana.revalidate();
             }
         });
