@@ -57,7 +57,7 @@ public class InsertarProduct {
             model.addColumn("tipo");
             model.addColumn("nombre");
             model.addColumn("marca");
-            model.addColumn("catidad");
+            model.addColumn("cantidad");
             model.addColumn("precio");
 
             // Llenar el modelo con los datos de la base de datos
@@ -66,7 +66,7 @@ public class InsertarProduct {
                 String tipo = resultSet.getString("tipo");
                 String nombre = resultSet.getString("nombre");
                 String marca = resultSet.getString("marca");
-                int catidad = resultSet.getInt("catidad");
+                int catidad = resultSet.getInt("cantidad");
                 double precio = resultSet.getDouble("precio");
                 model.addRow(new Object[]{id_producto,tipo,nombre,marca,catidad,precio });
             }

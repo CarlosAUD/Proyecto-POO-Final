@@ -18,6 +18,7 @@ public class verProducto {
     private JButton buscarButton;
     private JLabel advertencia;
 
+
     public verProducto() {
         Connection conexion = connector.obtenerConexion();
         try {
@@ -42,28 +43,19 @@ public class verProducto {
 
                     // Crear un nuevo modelo de tabla con los nombres de las columnas definidos
                     DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-                    // Iterar sobre los resultados del ResultSet y agregar filas al modelo de tabla
                     while (newRs.next()) {
                         Object[] rowData = new Object[columnNames.length];
                         for (int i = 0; i < columnNames.length; i++) {
-                            // Suponiendo que las columnas en el ResultSet están en el mismo orden que los nombres definidos
                             rowData[i] = newRs.getObject(i + 1);
                         }
                         model.addRow(rowData);
                     }
-
-                    // Establecer el modelo de tabla en tu JTable
                     table1.setModel(model);
-
-                    // Cerrar el ResultSet y la declaración
                     newRs.close();
                     newStatement.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-
-
             });
             rs.close();
             statement.close();
@@ -121,10 +113,15 @@ public class verProducto {
                     ResultSet rs = statement.executeQuery("SELECT * FROM productos");
                     ResultSetMetaData metaData = rs.getMetaData();
                     int columnCount = metaData.getColumnCount();
+
                     DefaultTableModel model = new DefaultTableModel();
+
+                    // Agregar nombres de columnas al modelo de tabla
                     for (int i = 1; i <= columnCount; i++) {
                         model.addColumn(metaData.getColumnName(i));
                     }
+
+                    // Agregar filas de datos al modelo de tabla
                     while (rs.next()) {
                         Object[] rowData = new Object[columnCount];
                         for (int i = 1; i <= columnCount; i++) {
@@ -132,7 +129,10 @@ public class verProducto {
                         }
                         model.addRow(rowData);
                     }
+
+                    // Establecer el modelo de tabla con nombres de columnas y filas de datos
                     table1.setModel(model);
+
                     rs.close();
                     statement.close();
                 } catch (SQLException ex) {
@@ -148,6 +148,7 @@ public class verProducto {
                 }
             }
         });
+
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,6 +216,87 @@ public class verProducto {
                         case "nombre":
                             try {
                                 String sql = "SELECT * FROM productos WHERE nombre = ?";
+                                PreparedStatement statement = conexion.prepareStatement(sql);
+                                statement.setString(1, nombre);
+                                ResultSet resultSet = statement.executeQuery();
+                                DefaultTableModel model = new DefaultTableModel();
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+                                for (int i = 1; i <= columnCount; i++) {
+                                    model.addColumn(metaData.getColumnName(i));
+                                }
+                                while (resultSet.next()) {
+                                    Object[] rowData = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        rowData[i - 1] = resultSet.getObject(i);
+                                    }
+                                    model.addRow(rowData);
+                                }
+                                table1.setModel(model);
+                                resultSet.close();
+                                statement.close();
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta SQL: " + exception.getMessage());
+                                exception.printStackTrace();
+                            }
+                            break;
+                        case "marca":
+                            try {
+                                String sql = "SELECT * FROM productos WHERE marca = ?";
+                                PreparedStatement statement = conexion.prepareStatement(sql);
+                                statement.setString(1, nombre);
+                                ResultSet resultSet = statement.executeQuery();
+                                DefaultTableModel model = new DefaultTableModel();
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+                                for (int i = 1; i <= columnCount; i++) {
+                                    model.addColumn(metaData.getColumnName(i));
+                                }
+                                while (resultSet.next()) {
+                                    Object[] rowData = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        rowData[i - 1] = resultSet.getObject(i);
+                                    }
+                                    model.addRow(rowData);
+                                }
+                                table1.setModel(model);
+                                resultSet.close();
+                                statement.close();
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta SQL: " + exception.getMessage());
+                                exception.printStackTrace();
+                            }
+                            break;
+                        case "cantidad":
+                            try {
+                                String sql = "SELECT * FROM productos WHERE cantidad = ?";
+                                PreparedStatement statement = conexion.prepareStatement(sql);
+                                statement.setString(1, nombre);
+                                ResultSet resultSet = statement.executeQuery();
+                                DefaultTableModel model = new DefaultTableModel();
+                                ResultSetMetaData metaData = resultSet.getMetaData();
+                                int columnCount = metaData.getColumnCount();
+                                for (int i = 1; i <= columnCount; i++) {
+                                    model.addColumn(metaData.getColumnName(i));
+                                }
+                                while (resultSet.next()) {
+                                    Object[] rowData = new Object[columnCount];
+                                    for (int i = 1; i <= columnCount; i++) {
+                                        rowData[i - 1] = resultSet.getObject(i);
+                                    }
+                                    model.addRow(rowData);
+                                }
+                                table1.setModel(model);
+                                resultSet.close();
+                                statement.close();
+                            } catch (SQLException exception) {
+                                JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta SQL: " + exception.getMessage());
+                                exception.printStackTrace();
+                            }
+                            break;
+                        case "precio":
+                            try {
+                                String sql = "SELECT * FROM productos WHERE precio = ?";
                                 PreparedStatement statement = conexion.prepareStatement(sql);
                                 statement.setString(1, nombre);
                                 ResultSet resultSet = statement.executeQuery();
