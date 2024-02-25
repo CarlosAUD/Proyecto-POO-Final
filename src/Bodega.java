@@ -24,7 +24,7 @@ public class Bodega {
                     Main.ventana.setContentPane(new eliminarProducto().eliminarJPanel);
                     Main.ventana.revalidate();
                 } else if (source == radioButton4) {
-                    Main.ventana.setContentPane(new modificarProducto().modificarJPanel);
+                    Main.ventana.setContentPane(new ModificarProducAD().modifiproduc);
                     Main.ventana.revalidate();
                 }
             }
