@@ -40,6 +40,13 @@ public class Admin {
                 Main.ventana.revalidate();
             }
         });
+        MODIFICARPButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new ModificarProduc().modifiproduc);
+                Main.ventana.revalidate();
+            }
+        });
     }
 
 }
