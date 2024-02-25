@@ -18,7 +18,7 @@ public class Bodega {
                     Main.ventana.setContentPane(new verProducto().verJPanel);
                     Main.ventana.revalidate();
                 } else if (source == radioButton2) {
-                    Main.ventana.setContentPane(new InsertarProduct().insertproduct);
+                    Main.ventana.setContentPane(new InsertarProductAD().insertproduct);
                     Main.ventana.revalidate();
                 } else if (source == radioButton3) {
                     Main.ventana.setContentPane(new eliminarProducto().eliminarJPanel);

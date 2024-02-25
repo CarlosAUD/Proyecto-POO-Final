@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 
-public class InsertarProduct {
+public class InsertarProductAD {
     JPanel insertproduct;
     private JTextField txtIDproduc;
     private JTextField txtTipo;
@@ -25,10 +25,10 @@ public class InsertarProduct {
 
     private Connection connection;
 
-    public InsertarProduct() {
+    public InsertarProductAD() {
 
         //Establecer la conexion
-        connection = connector.obtenerConexion();  // Reemplaza ConnectorClass con el nombre de tu clase que maneja la conexión
+        connection = connector.obtenerConexion();
 
         // Configuración de la tabla
         configureTable();
@@ -40,6 +40,13 @@ public class InsertarProduct {
                 } else {
                     JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new Admin().AdminU);
+                Main.ventana.revalidate();
             }
         });
     }
@@ -66,9 +73,9 @@ public class InsertarProduct {
                 String tipo = resultSet.getString("tipo");
                 String nombre = resultSet.getString("nombre");
                 String marca = resultSet.getString("marca");
-                int catidad = resultSet.getInt("cantidad");
+                int cantidad = resultSet.getInt("cantidad");
                 double precio = resultSet.getDouble("precio");
-                model.addRow(new Object[]{id_producto,tipo,nombre,marca,catidad,precio });
+                model.addRow(new Object[]{id_producto,tipo,nombre,marca,cantidad,precio });
             }
 
             // Configurar la tabla con el modelo
@@ -88,19 +95,19 @@ public class InsertarProduct {
             String tipo = txtTipo.getText();
             String nombre = txtNombrepro.getText();
             String marca = txtMarca.getText();
-            int catidad = Integer.parseInt(txtCantidad.getText());
+            int cantidad = Integer.parseInt(txtCantidad.getText());
             double precio = Double.parseDouble(txtPrecio.getText());
 
 
 
             // Insertar datos en la base de datos
-            String insertQuery = "INSERT INTO productos (id_producto,tipo,nombre,marca,catidad,precio) VALUES (?, ?, ?,?,?,?)";
+            String insertQuery = "INSERT INTO productos (id_producto,tipo,nombre,marca,cantidad,precio) VALUES (?, ?, ?,?,?,?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
             insertStatement.setInt(1,id_producto);
             insertStatement.setString(2, tipo);
             insertStatement.setString(3, nombre);
             insertStatement.setString(4, marca);
-            insertStatement.setInt(5,catidad);
+            insertStatement.setInt(5,cantidad);
             insertStatement.setDouble(6, precio);
             insertStatement.executeUpdate();
 
@@ -125,6 +132,8 @@ public class InsertarProduct {
             JOptionPane.showMessageDialog(null, "Error al agregar datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    //Verifiacion de que todos los campos esten llenos para agregar un producto
     private boolean camposLlenos() {
         return !txtIDproduc.getText().isEmpty() && !txtTipo.getText().isEmpty() && !txtNombrepro.getText().isEmpty()
                 && !txtMarca.getText().isEmpty() && !txtCantidad.getText().isEmpty() && !txtPrecio.getText().isEmpty();
