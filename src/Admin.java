@@ -30,9 +30,6 @@ public class Admin {
                 Main.ventana.revalidate();
             }
         });
-
-
-
         CREARPButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,6 +48,27 @@ public class Admin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.ventana.setContentPane(new EliminarProductosAD().EliminarPAD);
+                Main.ventana.revalidate();
+            }
+        });
+        CREARUButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new CrearUsuarioAD().crearusuarioad);
+                Main.ventana.revalidate();
+            }
+        });
+        MODIFICARUButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new ModificarUsuarioAD().modificarUsuarioAD);
+                Main.ventana.revalidate();
+            }
+        });
+        ELIMINARUButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.ventana.setContentPane(new EliminarUsuarioAD().eliminarUsuarioAD);
                 Main.ventana.revalidate();
             }
         });
