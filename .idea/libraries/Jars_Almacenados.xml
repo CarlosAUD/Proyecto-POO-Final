@@ -2,6 +2,7 @@
   <library name="Jars Almacenados">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/Jars Almacenados" />
+      <root url="jar://$PROJECT_DIR$/../../david/Descargas/pdfbox-app-3.0.1 (1).jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

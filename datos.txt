@@ -9,3 +9,5 @@ Takis	2.0	0	0.0
 Takis	2.0	0	0.0
 doritos	5.0	1	5.0
 doritos	5.0	1	5.0
+Takis	2.0	1	2.0
+Takis	2.0	0	0.0
